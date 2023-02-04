@@ -22,15 +22,42 @@ class _AuthenState extends State<Authen> {
     // ignore: prefer_const_constructors
     return Scaffold(
       body: SafeArea(
-        child: ListView(
-          children: [
-            buildImage(size),
-            buildAppName(),
-            buildUser(size),
-            buildPassword(size),
-          ],
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          behavior: HitTestBehavior.opaque,
+          child: ListView(
+            children: [
+              buildImage(size),
+              buildAppName(),
+              buildUser(size),
+              buildPassword(size),
+              buildLogin(size),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Row buildLogin(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 16),
+          width: size * 0.6,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: MyConstant.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+            onPressed: () {},
+            child: Text('Login'),
+          ),
+        ),
+      ],
     );
   }
 
@@ -80,13 +107,15 @@ class _AuthenState extends State<Authen> {
                     statusRedEye = !statusRedEye;
                   });
                 },
-                icon: statusRedEye ? Icon(
-                  Icons.remove_red_eye,
-                  color: MyConstant.dark,
-                ) : Icon(
-                  Icons.remove_red_eye_outlined,
-                  color: MyConstant.dark,
-                ),
+                icon: statusRedEye
+                    ? Icon(
+                        Icons.remove_red_eye,
+                        color: MyConstant.dark,
+                      )
+                    : Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: MyConstant.dark,
+                      ),
               ),
               labelStyle: MyConstant().h3Style(),
               labelText: 'Password :',
